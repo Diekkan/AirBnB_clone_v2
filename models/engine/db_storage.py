@@ -4,6 +4,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from models.base_model import Base
 
+
 class DBStorage():
     """ Database Storage class"""
 
@@ -26,20 +27,18 @@ class DBStorage():
     
     def all(self, cls=None):
         """return all objs depending on cls name"""
-        from models.state import State
         new_dict = {}
         if cls is None:
             for clase in Base.__subclasses__():
                  obj_list = self.__session.query(clase).all()
                  for element in obj_list:
-                     new_dict[str(element.__class__) + '.' + str(element.id)] = element
-            print(new_dict)
+                     new_dict[str(type(element).__name__) + '.' + str(element.id)] = element.to_dict()
             return (new_dict)
         else:
             obj_list = self.__session.query(cls).all()
             for element in obj_list:
-                print('entre cls print')
-                new_dict[str(type(element.__class__)) + '.' + str(element.id)] = element
+                delattr(element, '_sa_instance_state')
+                new_dict[str(type(element).__name__) + '.' + str(element.id)] = element
             return (new_dict) 
     
     def new(self, obj):
@@ -58,6 +57,7 @@ class DBStorage():
     def reload(self):
         from models.base_model import BaseModel
         from models.user import User
+        from models.state import State
         from models.place import Place
         from models.city import City
         from models.amenity import Amenity
