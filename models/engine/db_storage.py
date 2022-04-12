@@ -24,23 +24,25 @@ class DBStorage():
                                       pool_pre_ping=True)
         if (env == 'test'):
             Base.metadata.drop_all(self.__engine)
-    
+
     def all(self, cls=None):
         """return all objs depending on cls name"""
         new_dict = {}
         if cls is None:
             for clase in Base.__subclasses__():
-                 obj_list = self.__session.query(clase).all()
-                 for element in obj_list:
-                     new_dict[str(type(element).__name__) + '.' + str(element.id)] = element
+                obj_list = self.__session.query(clase).all()
+                for element in obj_list:
+                    new_dict[str(type(element).__name__) +
+                             '.' + str(element.id)] = element
             return (new_dict)
         else:
             obj_list = self.__session.query(cls).all()
             for element in obj_list:
                 delattr(element, '_sa_instance_state')
-                new_dict[str(type(element).__name__) + '.' + str(element.id)] = element
-            return (new_dict) 
-    
+                new_dict[str(type(element).__name__) +
+                         '.' + str(element.id)] = element
+            return (new_dict)
+
     def new(self, obj):
         """ add obj to current session"""
         self.__session.add(obj)
@@ -51,7 +53,7 @@ class DBStorage():
 
     def delete(self, obj=None):
         """ delete obj if not none"""
-        if (obj != None):
+        if ob is not None:
             self.__session.delete(obj)
 
     def reload(self):
@@ -62,7 +64,7 @@ class DBStorage():
         from models.city import City
         from models.amenity import Amenity
         from models.review import Review
-        
+
         Base.metadata.create_all(self.__engine)
         sess_fact = sessionmaker(expire_on_commit=False, bind=self.__engine)
         Session = scoped_session(sess_fact)

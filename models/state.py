@@ -6,12 +6,14 @@ from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 from sqlalchemy.orm import relationship, backref
 import os
 
+
 class State(BaseModel, Base):
     """ State class """
     __tablename__ = "states"
     name = Column(String(128), nullable=False)
-    cities = relationship("City", backref="State", cascade="all, delete-orphan")
-    
+    cities = relationship("City", backref="State",
+                          cascade="all, delete-orphan")
+
     @property
     def cities(self):
         """getter cities"""
