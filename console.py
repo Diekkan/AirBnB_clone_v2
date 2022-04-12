@@ -127,7 +127,7 @@ class HBNBCommand(cmd.Cmd):
             for kv in args[1:]:
                 kv = kv.split('=')
                 if '"' in kv[1]:
-                    kv[1] = kv[1].strip('"')
+                    kv[1] = kv[1].strip('"').replace('_', ' ')
                     setattr(new_instance, str(kv[0]), str(kv[1]))
                 elif '.' in kv[1]:
                     setattr(new_instance, str(kv[0]), float(kv[1]))
