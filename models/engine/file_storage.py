@@ -57,6 +57,7 @@ class FileStorage:
             pass
 
     def delete(self, obj=None):
+        """method to delete isntance"""
         if obj is not None:
             for key, value in FileStorage.__objects.items():
                 if str(value) == str(obj):
