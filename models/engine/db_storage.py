@@ -32,7 +32,7 @@ class DBStorage():
             for clase in Base.__subclasses__():
                  obj_list = self.__session.query(clase).all()
                  for element in obj_list:
-                     new_dict[str(type(element).__name__) + '.' + str(element.id)] = element.to_dict()
+                     new_dict[str(type(element).__name__) + '.' + str(element.id)] = element
             return (new_dict)
         else:
             obj_list = self.__session.query(cls).all()

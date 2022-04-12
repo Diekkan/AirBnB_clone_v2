@@ -12,4 +12,4 @@ class User(BaseModel, Base):
     password = Column(String(128), nullable=False)
     first_name = Column(String(128), nullable=False)
     last_name = Column(String(128), nullable=False)
-    laces = relationship("Place", backref="City", cascade="all, delete-orphan")
+    places = relationship("Place", backref="User", cascade="all, delete-orphan")
