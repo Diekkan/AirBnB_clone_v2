@@ -12,17 +12,17 @@ env.user = 'ubuntu'
 def do_deploy(archive_path):
     """ do_deploy deploys a file onto the servers """
     if (os.path.exists(archive_path)):
-        new_path = archive_path.replace('versions/', '')
-        file_name = new_path[:-4]
-        arc_folder = "/data/web_static/releases/{}".format(new_path)
+        newpath = archive_path.replace('versions/', '')
+        filename = newpath[:-4]
+        filefolder = "/data/web_static/releases/{}".format(newpath)
         put(archive_path, '/tmp/')
-        run('mkdir -p /data/web_static/releases/{}'.format(file_name))
-        run('tar -xzf /tmp/{} -C {}'.format(new_path, arc_folder[:-4]))
-        run('rm /tmp/{}'.format(new_path))
-        run('mv {}/web_static/* {}/'.format(arc_folder[:-4], arc_folder[:-4]))
-        run('rm -rf {}/web_static'.format(arc_folder[:-4]))
+        run('mkdir -p /data/web_static/releases/{}'.format(filename))
+        run('tar -xzf /tmp/{} -C {}'.format(newpath, arcfolder[:-4]))
+        run('rm /tmp/{}'.format(newpath))
+        run('mv {}/web_static/* {}/'.format(filefolder[:-4], filefolder[:-4]))
+        run('rm -rf {}/web_static'.format(filefolder[:-4]))
         run('rm -rf /data/web_static/current')
-        run('ln -s {} /data/web_static/current'.format(arc_folder[:-4]))
+        run('ln -s {} /data/web_static/current'.format(filefolder[:-4]))
         return True
     else:
         return False
