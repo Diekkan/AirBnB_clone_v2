@@ -2,7 +2,7 @@
 """ a Fabric script that distributes an archive to your
 web servers, using the function do_deploy """
 
-from fabric.api import run, put, local
+from fabric.api import run, put, local, env
 import os.path
 
 env.hosts = ['100.26.47.97', '104.196.100.253']
