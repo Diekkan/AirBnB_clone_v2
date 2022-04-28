@@ -9,8 +9,8 @@ def do_pack():
     """ makes tgz compressed file """
     now = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     local("mkdir -p versions")
-    file = local(f"tar -czvf versions/web_static_{now}\.tgz web_static")
+    file = local("tar -czvf versions/web_static_{}\.tgz web_static".format(now))
     if file:
-        return(f"versions/web_static_{now}")
+        return("versions/web_static_{}".format(now))
     else:
         return None
