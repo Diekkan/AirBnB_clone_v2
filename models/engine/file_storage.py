@@ -65,7 +65,7 @@ class FileStorage:
                     return
         else:
             return
-    
+
     def close(self):
         """method for deserealizing JSON file to objects"""
         return self.reload()

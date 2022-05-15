@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """This module defines a class User"""
+from os import environ as env
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 from sqlalchemy.orm import relationship, backref
@@ -16,3 +17,7 @@ class User(BaseModel, Base):
                           cascade="all, delete-orphan")
     reviews = relationship("Review", backref="user",
                            cascade="all, delete-orphan")
+    if env.get('HBNB_TYPE_STORAGE') == 'db':
+        places = relationship('Place',
+                              backref='city',
+                              cascade='all, delete-orphan')
